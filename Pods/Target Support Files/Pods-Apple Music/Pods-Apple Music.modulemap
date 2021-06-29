@@ -1,0 +1,6 @@
+framework module Pods_Apple_Music {
+  umbrella header "Pods-Apple Music-umbrella.h"
+
+  export *
+  module * { export * }
+}

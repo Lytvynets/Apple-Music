@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Apple Music
 //
-//  Created by ThePsih13 on 13.06.2021.
+//  Created by Vlad Lytvynets on 13.06.2021.
 //
 
 import UIKit
@@ -17,6 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+
+        window = UIWindow(windowScene: scene as! UIWindowScene)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = MainTabBarController()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

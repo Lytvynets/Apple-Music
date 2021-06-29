@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Apple Music
 //
-//  Created by ThePsih13 on 13.06.2021.
+//  Created by Vlad Lytvynets on 13.06.2021.
 //
 
 import UIKit
