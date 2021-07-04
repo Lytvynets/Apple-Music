@@ -20,7 +20,6 @@ protocol SearchDataStore{
 }
 
 class SearchInteractor: SearchBusinessLogic, SearchDataStore{
-    
     var presenter: SearchPresentationLogic?
     var worker: SearchWorker?
     var networkmanager = NetworkManager()
@@ -36,6 +35,7 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore{
             presenter?.presentSomething(response: Search.Something.Response.ResponseType.some)
             
         case .getTracks(let searchText):
+            presenter?.presentSomething(response: Search.Something.Response.ResponseType.presentFooterView)
             networkmanager.fetchTracks(searchText: searchText) { [weak self](SearchResponse) in
                 self?.presenter?.presentSomething(response: Search.Something.Response.ResponseType.presentTrack(searchResponse: SearchResponse))
             }

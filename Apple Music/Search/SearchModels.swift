@@ -28,6 +28,7 @@ enum Search{
             enum ResponseType {
                 case some
                 case presentTrack(searchResponse: SearchResponse?)
+                case presentFooterView
                 case presentVideo
             }
         }
@@ -36,6 +37,7 @@ enum Search{
             enum ViewModelData {
                 case some
                 case displayTrack(searchViewModel: SearchViewModel)
+                case displayFooterView
                 case viewVideo
             }
         }

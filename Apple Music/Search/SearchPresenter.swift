@@ -37,6 +37,9 @@ class SearchPresenter: SearchPresentationLogic{
         case .presentVideo:
             print("present Video")
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.viewVideo)
+       
+        case .presentFooterView:
+            viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.displayFooterView)
         }
     }
     

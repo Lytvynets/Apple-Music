@@ -18,6 +18,9 @@ protocol SearchDisplayLogic: class{
 
 class SearchViewController: UIViewController, SearchDisplayLogic{
     
+    
+    private lazy var footerView = FooterView()
+    
     private var searchViewModel = SearchViewModel.init(cells: [])
     private var timer: Timer?
     let searchController = UISearchController(searchResultsController: nil)
@@ -74,6 +77,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
     private func setupTableView(){
         table.register(UITableViewCell.self, forCellReuseIdentifier: "callId")
         let nib = UINib(nibName: "TrackCell", bundle: nil)
+        table.tableFooterView = footerView
         table.register(nib, forCellReuseIdentifier: TrackCell.reuseId)
     }
     
@@ -87,9 +91,13 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
         case .displayTrack(let searchViewModel):
             self.searchViewModel = searchViewModel
             table.reloadData()
+            footerView.hideLoader()
         
         case .viewVideo:
             print("ViewVideo")
+            
+        case .displayFooterView:
+            footerView.showLoader()
         }
     }
 }
@@ -105,7 +113,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = table.dequeueReusableCell(withIdentifier: TrackCell.reuseId, for: indexPath) as! TrackCell
         let cellViewModel = searchViewModel.cells[indexPath.row]
        
-        print("cellViewModel.ReviewURL:", cellViewModel.previewUrl)
+        print("cellViewModel.ReviewURL:", cellViewModel.previewUrl ?? "")
         cell.trackImage.backgroundColor = .red
         cell.set(viewModel: cellViewModel)
         
@@ -117,8 +125,33 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+  
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellViewModel = searchViewModel.cells[indexPath.row]
+        print("CellModelView: ", cellViewModel.trackName)
+        
+        let window = UIApplication.shared.keyWindow
+        let trackDetaleView = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as! TrackDetailView
+        window?.addSubview(trackDetaleView)
+        trackDetaleView.set(viewModel: cellViewModel)
+    }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 84
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Please enter search term above... "
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return searchViewModel.cells.count > 0 ? 0 : 250
     }
     
 }
@@ -127,7 +160,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 //MARK:- SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-      
+
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
            
