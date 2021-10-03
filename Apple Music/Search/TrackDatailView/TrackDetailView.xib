@@ -14,6 +14,56 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxD-fx-3ET">
+                    <rect key="frame" x="0.0" y="44" width="414" height="64"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hF8-pb-Gq2">
+                            <rect key="frame" x="8" y="8" width="398" height="48"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bxp-8s-jvA">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="SA3-F3-02W"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBt-uZ-NAd">
+                                    <rect key="frame" x="56" y="0.0" width="238" height="48"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWD-pE-M4y">
+                                    <rect key="frame" x="302" y="0.0" width="44" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="Gqq-lK-KXS"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="Triangle"/>
+                                    <connections>
+                                        <action selector="playPauseAction:" destination="VnI-Nt-GgB" eventType="touchUpInside" id="npR-3I-35N"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vm1-yb-uMb">
+                                    <rect key="frame" x="354" y="0.0" width="44" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="WqK-Lt-mxa"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="Right"/>
+                                    <connections>
+                                        <action selector="nextTrack:" destination="VnI-Nt-GgB" eventType="touchUpInside" id="jpA-ZE-Tdt"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="hF8-pb-Gq2" secondAttribute="trailing" constant="8" id="Pd5-qI-DY6"/>
+                        <constraint firstAttribute="bottom" secondItem="hF8-pb-Gq2" secondAttribute="bottom" constant="8" id="T3v-xk-vRt"/>
+                        <constraint firstItem="hF8-pb-Gq2" firstAttribute="top" secondItem="AxD-fx-3ET" secondAttribute="top" constant="8" id="grH-do-o13"/>
+                        <constraint firstAttribute="height" constant="64" id="r5I-dE-4Kh"/>
+                        <constraint firstItem="hF8-pb-Gq2" firstAttribute="leading" secondItem="AxD-fx-3ET" secondAttribute="leading" constant="8" id="uZl-qb-nAh"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x04-MI-MFJ">
                     <rect key="frame" x="30" y="44" width="354" height="788"/>
                     <subviews>
@@ -141,21 +191,28 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Fh3-SC-qzr" firstAttribute="trailing" secondItem="x04-MI-MFJ" secondAttribute="trailing" constant="30" id="DuM-if-wP5"/>
+                <constraint firstItem="AxD-fx-3ET" firstAttribute="top" secondItem="Fh3-SC-qzr" secondAttribute="top" id="K85-Ce-Piv"/>
+                <constraint firstItem="AxD-fx-3ET" firstAttribute="leading" secondItem="Fh3-SC-qzr" secondAttribute="leading" id="OLy-aL-yKu"/>
                 <constraint firstItem="x04-MI-MFJ" firstAttribute="top" secondItem="Fh3-SC-qzr" secondAttribute="top" id="XD9-Ks-j0j"/>
                 <constraint firstItem="x04-MI-MFJ" firstAttribute="leading" secondItem="Fh3-SC-qzr" secondAttribute="leading" constant="30" id="g2U-dT-EmD"/>
                 <constraint firstItem="Fh3-SC-qzr" firstAttribute="bottom" secondItem="x04-MI-MFJ" secondAttribute="bottom" constant="30" id="k52-Ke-pLU"/>
+                <constraint firstItem="Fh3-SC-qzr" firstAttribute="trailing" secondItem="AxD-fx-3ET" secondAttribute="trailing" id="tQf-0F-bbw"/>
             </constraints>
             <connections>
+                <outlet property="ImageMiniTrackDetailView" destination="bxp-8s-jvA" id="HR3-Sy-Xlc"/>
                 <outlet property="autorTitleLabel" destination="ICe-iG-h8I" id="0np-am-vfo"/>
                 <outlet property="currentTimeLabel" destination="i9U-uz-Hmj" id="c7h-cf-OA2"/>
                 <outlet property="currentTimeSlider" destination="VAR-fP-fZW" id="Cmr-4Z-0cR"/>
                 <outlet property="durationLabel" destination="Q0N-e8-vOa" id="QsQ-Qf-AaS"/>
+                <outlet property="maximizedStackView" destination="x04-MI-MFJ" id="yTb-kd-BFQ"/>
+                <outlet property="miniTrackDetilView" destination="AxD-fx-3ET" id="JcE-B4-lhZ"/>
                 <outlet property="playPauseButton" destination="T2G-Tr-qGH" id="cjF-f3-goK"/>
                 <outlet property="trackImageView" destination="AXq-NU-yUS" id="lOc-Lu-h8o"/>
+                <outlet property="trackLabelMiniTrackDetailView" destination="SBt-uZ-NAd" id="ASU-zu-SFg"/>
                 <outlet property="trackTitleLabel" destination="FDe-H3-Srm" id="r5F-wN-SJu"/>
                 <outlet property="volumeSlider" destination="Wkq-I5-TCL" id="li2-5E-ntJ"/>
             </connections>
-            <point key="canvasLocation" x="-253" y="71"/>
+            <point key="canvasLocation" x="-253.62318840579712" y="70.982142857142847"/>
         </view>
     </objects>
     <resources>
@@ -165,8 +222,12 @@
         <image name="Left" width="34" height="20"/>
         <image name="Pause" width="28" height="36"/>
         <image name="Right" width="34" height="20"/>
+        <image name="Triangle" width="16" height="17"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

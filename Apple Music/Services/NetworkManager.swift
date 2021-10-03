@@ -10,6 +10,7 @@ import Alamofire
 
 class NetworkManager {
     func fetchTracks(searchText: String, complition: @escaping (SearchResponse?) -> Void ){
+       
         let url = "https://itunes.apple.com/search"
         let parameters = ["term":"\(searchText)",
                           "limit":"10",
@@ -37,8 +38,7 @@ class NetworkManager {
                 complition(nil)
             }
             
-            //                let someString = String(data: data, encoding: .utf8)
-            //                print(someString ?? "")
+
         }
         
     }

@@ -18,6 +18,7 @@
 		E364E6FE268F43DA00493627 /* TrackDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E364E6FD268F43DA00493627 /* TrackDetailView.xib */; };
 		E364E701268F43F400493627 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E364E700268F43F400493627 /* TrackDetailView.swift */; };
 		E36A945126924442008CCA32 /* CMTime + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36A945026924442008CCA32 /* CMTime + Extension.swift */; };
+		E397CDC226E3F9AC009C28CE /* Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = E397CDC126E3F9AC009C28CE /* Nib.swift */; };
 		E3B41E43267578E800BB0AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B41E42267578E800BB0AF3 /* AppDelegate.swift */; };
 		E3B41E45267578E800BB0AF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B41E44267578E800BB0AF3 /* SceneDelegate.swift */; };
 		E3B41E47267578E800BB0AF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B41E46267578E800BB0AF3 /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		E364E6FD268F43DA00493627 /* TrackDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackDetailView.xib; sourceTree = "<group>"; };
 		E364E700268F43F400493627 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
 		E36A945026924442008CCA32 /* CMTime + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime + Extension.swift"; sourceTree = "<group>"; };
+		E397CDC126E3F9AC009C28CE /* Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nib.swift; sourceTree = "<group>"; };
 		E3B41E3F267578E800BB0AF3 /* Apple Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Apple Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B41E42267578E800BB0AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3B41E44267578E800BB0AF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				E3B41E42267578E800BB0AF3 /* AppDelegate.swift */,
 				E3198EF1267D6F8200363B2A /* UIViewController + StoryBoard.swift */,
 				E36A945026924442008CCA32 /* CMTime + Extension.swift */,
+				E397CDC126E3F9AC009C28CE /* Nib.swift */,
 			);
 			path = "Suport file";
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3DFF80D267A4A500041838F /* SearchResponse.swift in Sources */,
+				E397CDC226E3F9AC009C28CE /* Nib.swift in Sources */,
 				E3E95CB5267C041F0020E7E9 /* SearchWorker.swift in Sources */,
 				E3E95CB6267C041F0020E7E9 /* SearchRouter.swift in Sources */,
 				E345E0F026794E5600E8A71F /* SearchMusicViewController.swift in Sources */,
