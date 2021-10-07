@@ -16,28 +16,24 @@ protocol SearchPresentationLogic{
     func presentSomething(response: Search.Something.Response.ResponseType)
 }
 
+
 class SearchPresenter: SearchPresentationLogic{
     
     weak var viewController: SearchDisplayLogic?
     
     func presentSomething(response: Search.Something.Response.ResponseType){
+        
         switch response {
         case .some:
-            print("presenter: .Some")
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.some)
-       
         case .presentTrack(let searchResults):
-        let cells = searchResults?.results.map({ (track) in
+            let cells = searchResults?.results.map({ (track) in
                 cellViewModel(from: track)
             }) ?? []
-            
             let searchViewModel = SearchViewModel.init(cells: cells)
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.displayTrack(searchViewModel: searchViewModel))
-       
         case .presentVideo:
-            print("present Video")
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.viewVideo)
-       
         case .presentFooterView:
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.displayFooterView)
         }

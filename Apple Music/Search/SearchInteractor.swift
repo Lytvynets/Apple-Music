@@ -19,11 +19,13 @@ protocol SearchBusinessLogic{
 protocol SearchDataStore{
 }
 
+
 class SearchInteractor: SearchBusinessLogic, SearchDataStore{
+    
     var presenter: SearchPresentationLogic?
     var worker: SearchWorker?
     var networkmanager = NetworkManager()
-  
+    
     func makeRequest(request: Search.Something.Request.RequestType) {
         if worker == nil{
             worker = SearchWorker()
@@ -31,20 +33,14 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore{
         
         switch request {
         case .some:
-            print("interacrot: some")
             presenter?.presentSomething(response: Search.Something.Response.ResponseType.some)
-            
         case .getTracks(let searchText):
             presenter?.presentSomething(response: Search.Something.Response.ResponseType.presentFooterView)
             networkmanager.fetchTracks(searchText: searchText) { [weak self](SearchResponse) in
                 self?.presenter?.presentSomething(response: Search.Something.Response.ResponseType.presentTrack(searchResponse: SearchResponse))
             }
-            
         case .getVideo:
-            print("get Video")
             presenter?.presentSomething(response: Search.Something.Response.ResponseType.presentVideo)
         }
     }
-    
-    
 }

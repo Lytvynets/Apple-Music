@@ -19,9 +19,7 @@ protocol SearchDisplayLogic: class{
 class SearchViewController: UIViewController, SearchDisplayLogic{
     
     weak var tabBarDelegate: MainTabBarControllerDelegate?
-    
     private lazy var footerView = FooterView()
-    
     private var searchViewModel = SearchViewModel.init(cells: [])
     private var timer: Timer?
     let searchController = UISearchController(searchResultsController: nil)
@@ -32,7 +30,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
     
     @IBOutlet weak var table: UITableView!
     
-    //MARK:- Setup
+    //MARK: - Setup
     private func setup(){
         let viewController        = self
         let interactor            = SearchInteractor()
@@ -47,7 +45,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
     }
     
     
-    //MARK:- viewDidLoad
+    //MARK: - viewDidLoad
     override func viewDidLoad(){
         super.viewDidLoad()
         setup()
@@ -56,7 +54,21 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
     }
     
     
-    // MARK:- Routing
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter ({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+        tabBarVC?.trackDetailView.delegate = self
+    }
+    
+    
+    // MARK: - Routing
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
@@ -88,12 +100,12 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
         switch viewModel{
         case .some:
             print("some view")
-        
+            
         case .displayTrack(let searchViewModel):
             self.searchViewModel = searchViewModel
             table.reloadData()
             footerView.hideLoader()
-        
+            
         case .viewVideo:
             print("ViewVideo")
             
@@ -104,36 +116,36 @@ class SearchViewController: UIViewController, SearchDisplayLogic{
 }
 
 
-//MARK:- TableView
+//MARK: - TableView
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchViewModel.cells.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: TrackCell.reuseId, for: indexPath) as! TrackCell
         let cellViewModel = searchViewModel.cells[indexPath.row]
-       
+        
         print("cellViewModel.ReviewURL:", cellViewModel.previewUrl ?? "")
         cell.trackImage.backgroundColor = .red
         cell.set(viewModel: cellViewModel)
         return cell
     }
     
-  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellViewModel = searchViewModel.cells[indexPath.row]
         print("CellModelView: ", cellViewModel.trackName)
-        
         self.tabBarDelegate?.maximizedTrackDetailController(viewModel: cellViewModel)
-
+        
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 84
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
@@ -143,27 +155,25 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         return label
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return searchViewModel.cells.count > 0 ? 0 : 250
     }
-    
 }
 
 
-//MARK:- SearchBarDelegate
+//MARK: - SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
-           
             self?.interactor?.makeRequest(request: Search.Something.Request.RequestType.getTracks(searchText: searchText))
         })
     }
 }
 
 
-//MARK:- TrackMovingDelegate
+//MARK: - TrackMovingDelegate
 extension SearchViewController: TrackMovingDelegate {
     
     private func getTrack(isForwardTrack: Bool) -> SearchViewModel.Cell? {
@@ -175,29 +185,25 @@ extension SearchViewController: TrackMovingDelegate {
             if nextIndexPath.row == searchViewModel.cells.count{
                 nextIndexPath.row = 0
             }
-            }else{
-                nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
-                if nextIndexPath.row == -1 {
-                    nextIndexPath.row = searchViewModel.cells.count - 1
-                }
+        }else{
+            nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            if nextIndexPath.row == -1 {
+                nextIndexPath.row = searchViewModel.cells.count - 1
             }
-            
+        }
+        
         table.selectRow(at: nextIndexPath, animated: true, scrollPosition: .none)
         let cellViewModel = searchViewModel.cells[nextIndexPath.row]
         return cellViewModel
-            
-        }
+    }
     
     
     func moveBackTrack() -> SearchViewModel.Cell? {
-       return getTrack(isForwardTrack: false)
+        return getTrack(isForwardTrack: false)
     }
     
     
     func moveForwardTrack() -> SearchViewModel.Cell? {
-       return getTrack(isForwardTrack: true)
+        return getTrack(isForwardTrack: true)
     }
-    
-    
 }
-

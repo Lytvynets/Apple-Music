@@ -9,7 +9,10 @@ import SwiftUI
 
 struct Library: View {
     
-    var tracks = UserDefaults.standard.saveDataTracks()
+    @State var tracks = UserDefaults.standard.saveDataTracks()
+    @State private var track: SearchViewModel.Cell!
+    var tabBarDelegate: MainTabBarControllerDelegate?
+    
     
     var body: some View {
         
@@ -20,6 +23,8 @@ struct Library: View {
                     HStack(spacing: 20) {
                         
                         Button {
+                            self.track = self.tracks[0]
+                            self.tabBarDelegate?.maximizedTrackDetailController(viewModel: self.track)
                             print("ActionButton")
                         } label: {
                             Image(systemName: "play.fill")
@@ -31,6 +36,7 @@ struct Library: View {
                         
                         
                         Button {
+                            self.tracks = UserDefaults.standard.saveDataTracks()
                             print("Pause")
                         } label: {
                             Image(systemName: "arrow.2.circlepath")
@@ -44,14 +50,40 @@ struct Library: View {
                 Divider().padding(.leading).padding(.trailing)
                 
                 
-                List(tracks) { track in
-                    LibraryCell(cell: track)
+                List {
+                    ForEach(tracks){ track in
+                        LibraryCell(cell: track).simultaneousGesture(TapGesture().onEnded({ _ in
+                            
+                            let keyWindow = UIApplication.shared.connectedScenes
+                                .filter ({$0.activationState == .foregroundActive})
+                                .map({$0 as? UIWindowScene})
+                                .compactMap({$0})
+                                .first?.windows
+                                .filter({$0.isKeyWindow}).first
+                            let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+                            tabBarVC?.trackDetailView.delegate = self
+                            
+                            self.track = track
+                            self.tabBarDelegate?.maximizedTrackDetailController(viewModel: self.track)
+                        }))
+                    }.onDelete(perform: deleteCell )
+                    
                 }
             }
             .navigationBarTitle("Library")
         }
         
     }
+    
+    func deleteCell(at offsets: IndexSet){
+        tracks.remove(atOffsets: offsets)
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
+    }
+    
+    
 }
 
 
@@ -85,4 +117,37 @@ struct Library_Previews: PreviewProvider {
     static var previews: some View {
         Library()
     }
+}
+
+extension Library: TrackMovingDelegate {
+    
+    func moveBackTrack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let myIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        if myIndex - 1 == -1 {
+            nextTrack = tracks[tracks.count - 1]
+            
+        }else{
+            nextTrack = tracks[myIndex - 1]
+        }
+        self.track = nextTrack
+        return nextTrack
+    }
+    
+    func moveForwardTrack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let myIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        if myIndex + 1 == tracks.count {
+            nextTrack = tracks[0]
+            
+        }else{
+            nextTrack = tracks[myIndex + 1]
+        }
+        self.track = nextTrack
+        return nextTrack
+    }
+    
+    
 }

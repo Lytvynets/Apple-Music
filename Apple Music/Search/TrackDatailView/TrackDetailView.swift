@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import AVKit
 
-protocol TrackMovingDelegate: class {
+protocol TrackMovingDelegate {
     func moveBackTrack() -> SearchViewModel.Cell?
     func moveForwardTrack() -> SearchViewModel.Cell?
 }
@@ -33,9 +33,12 @@ class TrackDetailView: UIView {
     @IBOutlet weak var volumeSlider: UISlider!
     
     
-    weak var delegate: TrackMovingDelegate?
+    //MARK: - Delegate
+    var delegate: TrackMovingDelegate?
     weak var tabBarDelegate: MainTabBarControllerDelegate?
     
+    
+    //Player
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
         avPlayer.automaticallyWaitsToMinimizeStalling = false
@@ -43,6 +46,7 @@ class TrackDetailView: UIView {
     }()
     
     
+    //MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         let scale: CGFloat = 0.8
@@ -53,6 +57,7 @@ class TrackDetailView: UIView {
     }
     
     
+    //MARK: - Data display on TrackDetailWiew
     func set(viewModel: SearchViewModel.Cell){
         trackLabelMiniTrackDetailView.text = viewModel.trackName
         trackTitleLabel.text = viewModel.trackName
@@ -72,9 +77,7 @@ class TrackDetailView: UIView {
     //MARK: - Work with gestures
     private func setupGestures(){
         miniTrackDetilView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
-        
         miniTrackDetilView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
-        
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
     }
     
@@ -88,13 +91,10 @@ class TrackDetailView: UIView {
         switch gesture.state {
         case .began:
             print("began")
-       
         case .changed:
             handlePanChanged(gesture: gesture)
-       
         case .ended:
             handlePanEnded(gesture: gesture)
-        
         @unknown default:
             print("@unknown default")
         }
@@ -104,7 +104,6 @@ class TrackDetailView: UIView {
     private func handlePanChanged(gesture: UIPanGestureRecognizer){
         let translation = gesture.translation(in: self.superview)
         self.transform = CGAffineTransform(translationX: 0, y: translation.y)
-        
         let newAlpha = 1 + translation.y / 200
         self.miniTrackDetilView.alpha = newAlpha < 0 ? 0 : newAlpha
         self.maximizedStackView.alpha = -translation.y / 200
@@ -114,7 +113,10 @@ class TrackDetailView: UIView {
     private func handlePanEnded(gesture: UIPanGestureRecognizer){
         let translation = gesture.translation(in: self.superview)
         let velocity = gesture.velocity(in: self.superview)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1, options: .curveEaseOut,
+                       animations: {
             self.transform = .identity
             if translation.y < -200 || velocity.y < -500 {
                 self.tabBarDelegate?.maximizedTrackDetailController(viewModel: nil)
@@ -125,16 +127,20 @@ class TrackDetailView: UIView {
         }, completion: nil)
     }
     
-    
+    //Звуртає екран в мінімальний
     @objc private func handleDismissalPan(gesture: UIPanGestureRecognizer) {
         switch gesture.state {
-    
         case .changed:
             let translation = gesture.translation(in: self.superview)
             maximizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
         case .ended:
             let translation = gesture.translation(in: self.superview)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0, usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveEaseInOut,
+                           animations: {
+                
                 self.maximizedStackView.transform = .identity
                 if translation.y > 50 {
                     self.tabBarDelegate?.minimizedTrackDetailController()
@@ -156,7 +162,6 @@ class TrackDetailView: UIView {
     
     //MARK: - Time setup
     private func monitorStartTime(){
-        
         let time = CMTimeMake(value: 1, timescale: 3)
         let times = [NSValue(time: time)]
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
@@ -207,7 +212,6 @@ class TrackDetailView: UIView {
         player.volume = volumeSlider.value
     }
     
-    
     @IBAction func handlerCurrentTimeSlider(_ sender: Any) {
         let percentage = currentTimeSlider.value
         guard let duration = player.currentItem?.duration else { return }
@@ -217,10 +221,8 @@ class TrackDetailView: UIView {
         player.seek(to: seekTime)
     }
     
-    
     @IBAction func dragDownButtonTapped(_ sender: Any) {
         tabBarDelegate?.minimizedTrackDetailController()
-        //self.removeFromSuperview()
     }
     
     @IBAction func previousTrack(_ sender: Any) {
@@ -246,6 +248,4 @@ class TrackDetailView: UIView {
             reduceTrackImageView()
         }
     }
-    
-    
 }

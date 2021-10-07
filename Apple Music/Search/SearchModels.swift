@@ -47,6 +47,7 @@ enum Search{
 
 
 class SearchViewModel: NSObject, NSCoding {
+    
     func encode(with coder: NSCoder) {
         coder.encode(cells, forKey: "cells")
     }
@@ -56,7 +57,7 @@ class SearchViewModel: NSObject, NSCoding {
     }
     
     @objc(_TtCC11Apple_Music15SearchViewModel4Cell)class Cell: NSObject, NSCoding, Identifiable {
-       
+        
         func encode(with coder: NSCoder) {
             coder.encode(iconUrlString, forKey: "iconUrlString")
             coder.encode(trackName, forKey: "trackName")
@@ -65,6 +66,7 @@ class SearchViewModel: NSObject, NSCoding {
             coder.encode(previewUrl, forKey: "previewUrl")
         }
         
+        
         required init?(coder: NSCoder) {
             iconUrlString = coder.decodeObject(forKey: "iconUrlString") as? String? ?? ""
             trackName = coder.decodeObject(forKey: "trackName") as? String ?? ""
@@ -72,6 +74,7 @@ class SearchViewModel: NSObject, NSCoding {
             artistName = coder.decodeObject(forKey: "artistName") as? String ?? ""
             previewUrl = coder.decodeObject(forKey: "previewUrl") as? String? ?? ""
         }
+        
         
         var id = UUID()
         var iconUrlString: String?
@@ -88,14 +91,13 @@ class SearchViewModel: NSObject, NSCoding {
             self.artistName = artistName
             self.previewUrl = previewUrl
         }
-        
-        
     }
+    
     
     init(cells: [Cell]) {
         self.cells = cells
     }
     
+    
     let cells: [Cell]
 }
-
