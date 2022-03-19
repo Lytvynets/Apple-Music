@@ -22,8 +22,6 @@
 		E3B41E4F267578EE00BB0AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3B41E4D267578EE00BB0AF3 /* LaunchScreen.storyboard */; };
 		E3CA5C58270B0E2600E5F2BA /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CA5C57270B0E2600E5F2BA /* Library.swift */; };
 		E3CAD3B4270B82F000937414 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CAD3B3270B82F000937414 /* UserDefaults.swift */; };
-		E3CAD3B8270B8D0400937414 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3CAD3B7270B8D0400937414 /* TrackCell.xib */; };
-		E3CAD3BA270B8D1500937414 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CAD3B9270B8D1500937414 /* TrackCell.swift */; };
 		E3CC2186267615E700CAB067 /* MainTabBarController .swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CC2185267615E700CAB067 /* MainTabBarController .swift */; };
 		E3DFF80D267A4A500041838F /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DFF80C267A4A500041838F /* SearchResponse.swift */; };
 		E3DFF810267B91820041838F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DFF80F267B91820041838F /* NetworkManager.swift */; };
@@ -33,6 +31,8 @@
 		E3E95CB7267C041F0020E7E9 /* SearchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E95CB1267C041F0020E7E9 /* SearchModels.swift */; };
 		E3E95CB8267C041F0020E7E9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E95CB2267C041F0020E7E9 /* SearchViewController.swift */; };
 		E3E95CB9267C041F0020E7E9 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E95CB3267C041F0020E7E9 /* SearchInteractor.swift */; };
+		F54B5AC827E5CA380031473F /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B5AC727E5CA380031473F /* TrackCell.swift */; };
+		F54B5ACA27E5CA8F0031473F /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54B5AC927E5CA8F0031473F /* TrackCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +55,6 @@
 		E3B41E50267578EE00BB0AF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3CA5C57270B0E2600E5F2BA /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		E3CAD3B3270B82F000937414 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		E3CAD3B7270B8D0400937414 /* TrackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TrackCell.xib; path = "Apple Music/Search/TrackCell.xib"; sourceTree = SOURCE_ROOT; };
-		E3CAD3B9270B8D1500937414 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCell.swift; path = "Apple Music/Search/TrackCell.swift"; sourceTree = SOURCE_ROOT; };
 		E3CC2185267615E700CAB067 /* MainTabBarController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabBarController .swift"; sourceTree = "<group>"; };
 		E3DFF80C267A4A500041838F /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		E3DFF80F267B91820041838F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -66,6 +64,8 @@
 		E3E95CB1267C041F0020E7E9 /* SearchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModels.swift; sourceTree = "<group>"; };
 		E3E95CB2267C041F0020E7E9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E3E95CB3267C041F0020E7E9 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		F54B5AC727E5CA380031473F /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		F54B5AC927E5CA8F0031473F /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +108,8 @@
 		E346CB1A268BD0C50008EC30 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				E3CAD3B9270B8D1500937414 /* TrackCell.swift */,
-				E3CAD3B7270B8D0400937414 /* TrackCell.xib */,
+				F54B5AC727E5CA380031473F /* TrackCell.swift */,
+				F54B5AC927E5CA8F0031473F /* TrackCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -265,8 +265,8 @@
 			files = (
 				E3B41E4F267578EE00BB0AF3 /* LaunchScreen.storyboard in Resources */,
 				E364E6FE268F43DA00493627 /* TrackDetailView.xib in Resources */,
-				E3CAD3B8270B8D0400937414 /* TrackCell.xib in Resources */,
 				E3B41E4C267578EE00BB0AF3 /* Assets.xcassets in Resources */,
+				F54B5ACA27E5CA8F0031473F /* TrackCell.xib in Resources */,
 				E3B41E4A267578E800BB0AF3 /* Main.storyboard in Resources */,
 				E3198EE8267D6AAE00363B2A /* SearchViewController.storyboard in Resources */,
 			);
@@ -329,7 +329,6 @@
 				E3E95CB9267C041F0020E7E9 /* SearchInteractor.swift in Sources */,
 				E3CA5C58270B0E2600E5F2BA /* Library.swift in Sources */,
 				E3B41E43267578E800BB0AF3 /* AppDelegate.swift in Sources */,
-				E3CAD3BA270B8D1500937414 /* TrackCell.swift in Sources */,
 				E36A945126924442008CCA32 /* CMTime + Extension.swift in Sources */,
 				E3DFF810267B91820041838F /* NetworkManager.swift in Sources */,
 				E364E701268F43F400493627 /* TrackDetailView.swift in Sources */,
@@ -337,6 +336,7 @@
 				E3CAD3B4270B82F000937414 /* UserDefaults.swift in Sources */,
 				E3B41E45267578E800BB0AF3 /* SceneDelegate.swift in Sources */,
 				E3198EF2267D6F8200363B2A /* UIViewController + StoryBoard.swift in Sources */,
+				F54B5AC827E5CA380031473F /* TrackCell.swift in Sources */,
 				E3CC2186267615E700CAB067 /* MainTabBarController .swift in Sources */,
 				E3E95CB7267C041F0020E7E9 /* SearchModels.swift in Sources */,
 				E364E6F9268EBC6800493627 /* FooterView.swift in Sources */,
