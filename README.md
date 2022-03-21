@@ -1,5 +1,5 @@
 # Apple-Music
-
+ThisisanapplicationforlisteningtomusicsimilartoApplemusic
 ## Build Instructions
 
 You'll need [CocoaPods](http://cocoapods.org) installed for of our dependencies.
