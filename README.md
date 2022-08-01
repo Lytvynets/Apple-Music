@@ -15,6 +15,11 @@ Now you'll need to build the dependencies.
 * Alamofire
 * SDWebImage
  
+ ## Screenshots
+ ![image](https://github.com/Lytvynets/CSGOWeaponStats/blob/master/AppleMusic-img/AppleMusic1.png)
+ ![image](https://github.com/Lytvynets/CSGOWeaponStats/blob/master/AppleMusic-img/AppleMusic3.png)
+ ![image](https://github.com/Lytvynets/CSGOWeaponStats/blob/master/AppleMusic-img/AppleMusic2.png)
+ 
 ## Other projects
 * [CS:GO Weapon Stats](https://github.com/Lytvynets/CS-GO-Weapon-Stats)
 * [Debtors list](https://github.com/Lytvynets/Debtors-list)
